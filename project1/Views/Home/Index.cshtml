@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" />
+  <!--Add Jquery Datatable reference files-->
+
+<br>
+<br>
+<div>
+    @Html.ActionLink("Add Employee", "Create", new { @class = "form-control" })
+</div>
+<br >
+<br>
+<br>
+<div style="width:90%;">
+    <table id="Jdatatable" class="table table-responsive table-bordered">
+        <thead>
+            <tr>
+                
+
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>MaritalStatus</th>
+                <th>Action</th>
+                
+
+
+            </tr>
+        </thead>
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        $("#Jdatatable").DataTable({
+            "ajax": {
+                "url": "/Home/GetData",
+                "type": "GET",
+                "datatype":"json"
+            },
+            "columns": [
+                        { "data": "Name", "autoWidth": true },
+                        { "data": "Email", "autoWidth": true },
+                        { "data": "Phone", "autoWidth": true },
+                        {
+                            data: "MariStatus",
+                            render: function (data, type, row) {
+                                if (type === 'display') {
+                                    return '<input type="checkbox" class="editor-active">';
+                                }
+                                return data;
+                            },
+                            className: "dt-body-center"
+                        },
+
+            {
+                data: null,
+
+                className: "center",
+                defaultContent: '<a href=" " class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
+            }
+
+
+
+            ],
+          
+    });
+   
+       
+
+        // Delete a record
+      
+    });
+    </script>
+}
+
